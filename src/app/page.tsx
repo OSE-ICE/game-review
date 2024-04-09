@@ -54,7 +54,7 @@ export default () => {
       ))}
       <div>
         <button className="review-button" onClick={() => setShowReview(true)}>
-          New review
+          New review..
         </button>
       </div>
       {showReview ? (
