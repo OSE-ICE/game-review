@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import "./globals.css";
 
@@ -7,10 +6,12 @@ const GameReview = ({
   name,
   desc,
   review,
+  onDelete,
 }: {
   name: string;
   desc: string;
   review: number;
+  onDelete: () => void;
 }) => {
   return (
     <>
@@ -18,6 +19,9 @@ const GameReview = ({
         <div>Name: {name}</div>
         <div>Description: {desc}</div>
         <div>Review: {review}</div>
+        <button className="delete-button" onClick={onDelete}>
+          X
+        </button>
       </div>
     </>
   );
@@ -47,14 +51,24 @@ export default () => {
     setShowReview(false);
   };
 
+  const handleDeleteReview = (index: number) => {
+    const newGameReviews = [...gameReviews];
+    newGameReviews.splice(index, 1);
+    setGameReviews(newGameReviews);
+  };
+
   return (
     <>
       {gameReviews.map((review, index) => (
-        <GameReview key={index} {...review} />
+        <GameReview
+          key={index}
+          {...review}
+          onDelete={() => handleDeleteReview(index)}
+        />
       ))}
       <div>
         <button className="review-button" onClick={() => setShowReview(true)}>
-          New review..
+          New review...
         </button>
       </div>
       {showReview ? (
